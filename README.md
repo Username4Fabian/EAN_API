@@ -1,46 +1,81 @@
-# EAN Product Information Fetcher
+# CSV and API Query Program
 
-This project fetches product information using an EAN (European Article Number), also known as a barcode number, and writes the data to an Excel file. If no product information is found for a given EAN, the script will still write the EAN to the Excel file with an empty product title.
+This program provides two functionalities:
 
-## Setup and Running
+1. CSV Comparison: Combines data from multiple CSV files, finds matches based on specific codes in the data, and writes the combined data with additional columns to a new CSV file.
 
-1. **Install Required Libraries**: This project requires `requests`, `pandas`, and `openpyxl`. You can install these libraries using pip:
+2. API Query: Fetches product information from an API using the EAN (European Article Number) as input and writes the fetched data to an Excel file.
 
-    ```bash
-    pip install requests pandas openpyxl
-    ```
+## Setup
 
-2. **Configure API Details**: API details should be configured in a `config.json` file in the project directory. The file should be structured as follows:
+### Prerequisites
 
-    ```json
-    {
-        "url": "https://barcodes1.p.rapidapi.com/",
-        "headers": {
-            "X-RapidAPI-Key": "YOUR_API_KEY",
-            "X-RapidAPI-Host": "barcodes1.p.rapidapi.com"
-        }
-    }
-    ```
-    Replace "YOUR_API_KEY" with your actual RapidAPI key.
+- Python 3.x installed
+- Required Python libraries: `requests`, `pandas`, `json`
+- CSV files for the CSV comparison functionality
+- A `config.json` file containing the API details for the API query functionality
 
-3. **Run the Script**: Run the script using Python:
+To install the required Python libraries, you can use pip:
 
-    ```bash
-    python EAN_API.py
-    ```
+```bash
+pip install requests pandas
+```
 
-4. **Enter EANs**: When prompted, enter an EAN for which you'd like to fetch product information. If you want to stop the program, type "quit" or "stop".
+### Configuration
 
-## Error Handling
+The program expects a `config.json` file in the same directory as the main Python script. This file should contain the API details for the API query functionality. The structure of the `config.json` file should be as follows:
 
-This script includes error handling for HTTP errors and general exceptions when making API requests, as well as exceptions when writing to the Excel file. If an error occurs, a message will be printed to the console.
+```json
+{
+  "url": "API_URL_HERE",
+  "headers": {
+    "HEADER_NAME": "HEADER_VALUE",
+    "HEADER_NAME": "HEADER_VALUE"
+  }
+}
+```
 
-## Limitations and Future Work
+Replace `"API_URL_HERE"` with the URL of the API, and replace `"HEADER_NAME"` and `"HEADER_VALUE"` with the names and values of the headers required for the API.
 
-This script currently only supports single-threaded operation. In future versions, multithreading could be added to process multiple EANs in parallel.
+## Usage
 
-The script currently fetches product information from a single API. In future versions, support for additional APIs could be added to increase the likelihood of finding product information for a given EAN.
+### Running the Program
 
-## Contributions
+Run the main Python script (`main.py` or whatever you have named the main script):
 
-Contributions to this project are welcome. Please submit a pull request or create an issue to propose changes or additions.
+```bash
+python main.py
+```
+
+You will be presented with a menu:
+
+```
+Select an option:
+1: CSV Comparison
+2: API Query
+3: Exit Program
+```
+
+Enter `1` to run the CSV comparison functionality or `2` to run the API query functionality. Enter `3` to exit the program.
+
+### CSV Comparison
+
+For the CSV comparison functionality, the program expects CSV files in a directory named `input_files`. It reads data from all CSV files in this directory, combines them, finds matches based on specific codes, and writes the combined data with additional columns to a new CSV file named `gr_Final.csv`.
+
+The specific codes used for matching are alphanumeric strings at least four characters long. The program looks for these codes in the columns whose headers are any of the following: "bezeichnung", "art.nr.", "type", "art.bez.", "name". If a match is found in any row from the combined data, the EAN from that row (from the column with a header containing "ean") is added to the original row in the new column "New EAN".
+
+### API Query
+
+For the API query functionality, the program asks the user to enter an EAN. It then fetches product information from the API and writes this information to an Excel file named `products.xlsx`. If the file already exists, the new data is appended to it; otherwise, a new file is created.
+
+The data written to the Excel file includes the EAN and the title of the product. The title is fetched from the API response.
+
+To stop the program, enter `quit` or `stop`.
+
+## Exit Program
+
+At any time during the operation of the program, you can choose to exit by selecting the "Exit Program" option in the main menu or by entering 'quit' or 'stop' during the API Query operation.
+
+---
+
+I hope this gives a more detailed explanation for your users. Let me know if you need any further changes or additions.
