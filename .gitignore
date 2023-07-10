@@ -4,7 +4,13 @@ __pycache__/
 *$py.class
 
 config.json
-products.xlsx
+
+*.xls
+*.xlsx
+*.csv
+
+input_files
+
 
 # C extensions
 *.so
