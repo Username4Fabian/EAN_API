@@ -75,7 +75,3 @@ To stop the program, enter `quit` or `stop`.
 ## Exit Program
 
 At any time during the operation of the program, you can choose to exit by selecting the "Exit Program" option in the main menu or by entering 'quit' or 'stop' during the API Query operation.
-
----
-
-I hope this gives a more detailed explanation for your users. Let me know if you need any further changes or additions.
