@@ -11,6 +11,7 @@ config.json
 
 input_files
 
+.DS_Store
 
 # C extensions
 *.so
