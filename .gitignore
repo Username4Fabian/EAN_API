@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 config.json
-
+products.xlsx
 
 # C extensions
 *.so
