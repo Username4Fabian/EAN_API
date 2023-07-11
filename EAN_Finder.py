@@ -113,11 +113,13 @@ def write_to_excel(ean, product_info, filename='products.xlsx'):
 def api_query():
     while True:
         ean = input('Enter an EAN (or "quit" or "stop" to stop): ')
+        
         if ean.lower() in ['quit', 'stop']:
             break
+
         product_info = get_product_info(ean)
         if product_info is None:
-            print(f'No product info found for EAN {ean}.')
+            print(f'No product info found for EAN {ean}')
             continue
         try:
             write_to_excel(ean, product_info)
